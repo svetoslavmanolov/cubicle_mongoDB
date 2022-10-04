@@ -1,0 +1,29 @@
+{
+  "name": "cubicle_mongodb",
+  "version": "1.0.0",
+  "description": "Softuni Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/svetoslavmanolov/cubicle_mongoDB.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/svetoslavmanolov/cubicle_mongoDB/issues"
+  },
+  "homepage": "https://github.com/svetoslavmanolov/cubicle_mongoDB#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "express-handlebars": "^6.0.6",
+    "mongodb": "^4.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
