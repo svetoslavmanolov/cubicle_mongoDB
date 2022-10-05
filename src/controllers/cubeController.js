@@ -9,7 +9,7 @@ router.post('/create', async (req, res) => {
     const cube = req.body;
 
     if(cube.name.length < 2) {
-        return res.status(400).send('Invalid request - name must have over 2 letter.');
+        return res.status(400).send('Invalid request - name must contain more than 2 letters');
     }
     try {
         await cubeService.create(cube)
@@ -20,8 +20,13 @@ router.post('/create', async (req, res) => {
     }
 });
 
+// router.get('/details/:cubeId', async (req, res) => {
+//     const cube = await cubeService.getOne(req.params.cubeId);
+//     res.render('details', { cube });
+// });
+
 router.get('/details/:cubeId', async (req, res) => {
-    const cube = await cubeService.getOne(req.params.cubeId);
+    const cube = await cubeService.getOneDetails(req.params.cubeId).lean();
     res.render('details', { cube });
 });
 
