@@ -1,7 +1,15 @@
 const Cube = require('../models/Cube');
 const Accessory = require('../models/Accessory');
 
-exports.getAll = () => Cube.find().lean();
+exports.getAll = async (search = '', fromInput, toInput) => {
+    const from = Number(fromInput) || 0;
+    const to = Number(toInput) || 6;
+
+    let cubes = await Cube.find({ name: { $regex: new RegExp(search, 'i') } })
+    .where('difficultyLevel').gte(from).lte(to)
+    .lean();
+    return cubes;
+}
 
 exports.getOne = (cubeId) => Cube.findById(cubeId).lean();
 
