@@ -11,9 +11,18 @@ router.post('/register', async (req, res) => {
     if(createdUser) {
     res.redirect('/auth/login')
     } else {
-        //TODO: redirect to 404 page
-        res.status(404).send('Cannot create user');
+        //TODO: add notification
+        res.redirect('/404')
     }
 });
+
+router.get('/login', (req, res) => {
+    res.render('auth/login');
+});
+
+router.post('/login', (req, res) => {
+    console.log(req.body);
+    res.redirect('/');
+})
 
 module.exports = router;

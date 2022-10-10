@@ -16,10 +16,19 @@ exports.register = async ({username, password, repeatPassword}) => {  //napravo 
     }
 
     let hashedPassword = await bcrypt.hash(password, saltRounds);
-    let createdUser = User.create({
+
+    let createdUser = User.create({ //tova e statichen metod, koito se izvikva direktno ot class-a
         username,
         password: hashedPassword
     });
+
+    //second way to create createdUser
+    //izpolzva se kogato iskame da sazdadem obekta i da operirame s nego predi da go save() v bazata danni
+    // let createdUser = new User({
+    //     username,
+    //     password: hashedPassword
+    // });
+    // await createdUser.save();  //tova save() e instancionen metod, a ne e statichen metod
     
     return createdUser;
 }
