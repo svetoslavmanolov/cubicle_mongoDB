@@ -1,12 +1,15 @@
 const express = require('express');
 const app = express();
 const routes = require('./routes');
+const cookieParser = require('cookie-parser');
 const port = 5000;
 const { initializeDatabase } = require('./config/database');
 
 require('./config/handlebars')(app);
 
 app.use('/static', express.static('public'));
+
+app.use(cookieParser());
 
 app.use(express.urlencoded({extended: false}));
 

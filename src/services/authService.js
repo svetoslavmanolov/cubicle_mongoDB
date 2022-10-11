@@ -11,9 +11,9 @@ const secret = 'hsfhafgakjgfakfgagfagflagflagf';
 
 //exports.register = (userData) => User.create(userData); //taka bez curly brackets ako samo shte vrashtame rezultata i tova vrashta Promise
 
-exports.register = async ({username, password, repeatPassword}) => {  //napravo destructurirame 
+exports.register = async ({ username, password, repeatPassword }) => {  //napravo destructurirame 
     //User.create(userData);
-    if(password !== repeatPassword) {
+    if (password !== repeatPassword) {
         return false;  //samo return shte varne undefined
     }
 
@@ -31,33 +31,38 @@ exports.register = async ({username, password, repeatPassword}) => {  //napravo 
     //     password: hashedPassword
     // });
     // await createdUser.save();  //tova save() e instancionen metod, a ne e statichen metod
-    
+
     return createdUser;
 }
 
-exports.login = async ({username, password}) => {
-    let user = await User.findOne({username});
-    console.log(user.password)
-    console.log(password)
-    if(!user) {
+exports.login = async ({ username, password }) => {
+    let user = await User.findOne({ username });
+
+    if (!user) {
         //TODO: add message
         return;
     }
 
     const isValid = await bcrypt.compare(password, user.password);
 
-    if(!isValid) {
+    if (!isValid) {
         return;
-    } 
+    }
 
     let result = new Promise((resolve, reject) => {
-        jwt.sign({_id:user._id, username: user.username}, secret, {expiresIn: '2d'}, (err, token) => {
-            if(err) {
+        jwt.sign({ _id: user._id, username: user.username }, secret, { expiresIn: '2d' }, (err, token) => {
+            if (err) {
                 return reject(err);
             }
             resolve(token);
         });
     });
     return result;
+
+    //second way to convert jwt.sign from callback to Promise
+    //const { promisify } = require('util');
+
+    // const jwtPromiseSign = promisify(jwt.sign);
+    // jwtPromiseSign({_id:user._id, username: user.username}, secret);
 
 };
