@@ -39,6 +39,23 @@ router.post('/:cubeId/attach-accessory', async (req, res) => {
     res.redirect(`/cube/details/${req.params.cubeId}`);   
 });
 
+router.get('/:cubeId/edit', async (req,res) => {
+    const cube = await cubeService.getOne(req.params.cubeId).lean();
+    cube[`difficultyLevel${cube.difficultyLevel}`] = true;
+    //console.log(cube.difficultyLevel);
+    // console.log('Hello')
+    
+    if(!cube) {
+        return res.redirect('/404')
+    }
+    res.render('cube/edit', {cube});
+});
+
+router.post('/:cubeId/edit', async (req, res) => {
+    
+    let modifiedCube = await cubeService.edit(req.params.cubeId, req.body);
+    res.redirect(`/cube/details/${modifiedCube._id}`);
+});
 
 
 
