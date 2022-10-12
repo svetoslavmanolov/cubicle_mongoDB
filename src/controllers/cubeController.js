@@ -1,13 +1,15 @@
 const router = require('express').Router();
 const cubeService = require('../services/cubeService');
 const accessoryService = require('../services/accessoryService');
+const {isAuth} = require('../middlewares/authMiddleware');
 
-router.get('/create', (req, res) => {
+router.get('/create', isAuth, (req, res) => {
     res.render('create');
 });
 
-router.post('/create', async (req, res) => {
+router.post('/create', isAuth, async (req, res) => {
     const cube = req.body;
+    cube.owner = req.user._id;
 
     if (cube.name.length < 2) {
         return res.status(400).send('Invalid request - name must contain more than 2 letters');
