@@ -11,6 +11,7 @@ exports.auth = async (req, res, next) => {
         try {
             let decodedToken = await jwtVerify(token, secret);
             req.user = decodedToken;
+            res.locals.user = decodedToken; //tova e validno samo i edinstveno za jivora na request-a
 
         } catch(err) {
             console.log(err)
