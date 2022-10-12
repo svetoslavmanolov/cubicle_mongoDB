@@ -68,6 +68,17 @@ router.post('/:cubeId/edit', async (req, res) => {
     res.redirect(`/cube/details/${modifiedCube._id}`);
 });
 
+router.get('/:cubeId/delete', async (req, res) => {
+    const cube = await cubeService.getOne(req.params.cubeId).lean();
+
+    //TODO: is owner validation ili da vzemesh cube v otedelen middleware i tam da go validirame
+    res.render('cube/delete', { cube });
+});
+
+router.post('/:cubeId/delete', async (req, res) => {
+    await cubeService.delete(req.params.cubeId);
+    res.redirect('/');
+});
 
 
 module.exports = router;
