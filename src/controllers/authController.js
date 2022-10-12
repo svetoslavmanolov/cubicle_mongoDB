@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const authService = require('../services/authService');
 
+const { sessionName } = require('../constants');
+
 router.get('/register', (req, res) => {
     res.render('auth/register')
 });
@@ -27,7 +29,7 @@ router.post('/login', async (req, res) => {
         return res.redirect('/404')
     }
 
-    res.cookie('session', token, {httpOnly: true});  //httpOnly: true - JS na browser-a nqma da moje da chete cookie-to
+    res.cookie(sessionName, token, {httpOnly: true});  //httpOnly: true - JS na browser-a nqma da moje da chete cookie-to
     res.redirect('/');
 });
 

@@ -2,8 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-const saltRounds = 10;
-const secret = 'hsfhafgakjgfakfgagfagflagflagf';
+const { saltRounds, secret } = require('../constants');
 
 // exports.register = (userData) =>   //or (username, password, repeatPassword)
 //     User.create(userData);
