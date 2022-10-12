@@ -40,10 +40,10 @@ router.post('/:cubeId/attach-accessory', async (req, res) => {
 });
 
 router.get('/:cubeId/edit', async (req,res) => {
+
+    console.log(req.user)
     const cube = await cubeService.getOne(req.params.cubeId).lean();
     cube[`difficultyLevel${cube.difficultyLevel}`] = true;
-    //console.log(cube.difficultyLevel);
-    // console.log('Hello')
     
     if(!cube) {
         return res.redirect('/404')
